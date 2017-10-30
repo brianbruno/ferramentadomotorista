@@ -16,7 +16,15 @@ window.Vue = require('vue');
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('inicio-component', require('./components/InicioComponent.vue'));
 
 const app = new Vue({
     el: '#app'
+});
+
+var inicioComponent = new Vue({
+    el: '#inicio-component',
+    data: {
+        message: 'You loaded this page on ' + new Date().toLocaleString()
+    }
 });
