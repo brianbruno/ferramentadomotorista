@@ -19,3 +19,5 @@ Route::get('/inicio', function () {
     return view('inicio');
 });
 
+Route::resource('clientes','ClienteController');
+
