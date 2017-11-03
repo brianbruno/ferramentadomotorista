@@ -29,8 +29,9 @@
     @foreach ($clientes as $cliente)
     <tr>
         <td>{{ $cliente->id }}</td>
-        <td>{{ $cliente->nome}}</td>
-        <td>{{ $cliente->sobrenome}}</td>
+        <td>{{ $cliente->nome }}</td>
+        <td>{{ $cliente->sobrenome }}</td>
+        <td>{{ $cliente->email }}</td>
         <td>
             <a class="btn btn-info" href="{{ route('clientes.show',$cliente->id) }}">Show</a>
             <a class="btn btn-primary" href="{{ route('clientes.edit',$cliente->id) }}">Editar</a>
