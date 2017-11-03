@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('inicio');
 });
 
 Route::get('/inicio', function () {
@@ -20,4 +20,9 @@ Route::get('/inicio', function () {
 });
 
 Route::resource('clientes','ClienteController');
+
+Route::get('/usuarios/{user_id?}',function($user_id){
+    $usuarios = \App\Cliente::find($user_id);
+    return Response::json($usuarios);
+});
 
