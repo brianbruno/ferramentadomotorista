@@ -15,13 +15,13 @@
 </div>
 @endif
 
-<table class="table highlight">
+<table class="responsive-table highlight">
     <tr>
         <th>ID</th>
         <th>Nome</th>
         <th>Sobrenome</th>
         <th>Email</th>
-        <th><center>Registros cadastrados</center></th>
+        <th>Registros cadastrados</th>
         <th width="280px">Ações</th>
     </tr>
     @foreach ($usuarios as $usuario)
@@ -32,7 +32,7 @@
         <td>{{ $usuario->email }}</td>
         <th><center>{{ $usuario->total_registros }}</center></th>
         <td>
-            <a class="btn waves-effect waves-light teal darken-4" href="{{ route('usuarios.show',$usuario->id) }}">Show</a>
+            <a class="btn waves-effect waves-light teal darken-4" href="{{ route('usuarios.show',$usuario->id) }}">Mais informações</a>
         </td>
     </tr>
     @endforeach
