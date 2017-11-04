@@ -23,26 +23,23 @@ Route::get('/inicio', function () {
 
 Route::resource('clientes','ClienteController');
 
-/*Route::resource('usuarios','UsuariosController');
-
-Route::get('/usuarios/',function(){
-    // Run controller and method
-    $app = app();
-    $controller = $app->make('\App\Http\Controllers\UsuariosController');
-    return $controller->index();
-});*/
 
 Route::get('/usuarios/{user_id}/{returnType?}',function($user_id, $returnType = 'view'){
     // Run controller and method
     $app = app();
     $controller = $app->make('\App\Http\Controllers\UsuariosController');
     return $controller->show($user_id, $returnType);
-})->name('usuarios.show');
+})->name('usuarios.show')
+    ->where(['user_id' => '[0-9]+', 'returnType' => '[a-z]+']);
+
 
 Route::get('/usuarios/{returnType?}',function($returnType = 'view'){
     // Run controller and method
     $app = app();
     $controller = $app->make('\App\Http\Controllers\UsuariosController');
     return $controller->index($returnType);
-})->name('usuarios.index');
+})->name('usuarios.index')
+  ->where(['returnType' => '[a-z]+']);
+
+
 

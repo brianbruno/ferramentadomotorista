@@ -11,6 +11,8 @@
     <link type="text/css" rel="stylesheet" href="https://ferramentadomotorista.cf/laravel/public/materialize/css/materialize.min.css"  media="screen,projection"/>
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="stylesheet" href="{{ URL::asset('css/usuarios.css') }}" />
 </head>
 <body>
 
@@ -23,9 +25,16 @@
     </div>
 </nav>
 
+
 <div class="container">
     @yield('content')
 </div>
-<script src="https://ferramentadomotorista.cf/laravel/resources/assets/js/app.js"></script>
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="https://ferramentadomotorista.cf/laravel/public/materialize/js/materialize.min.js"></script>
+<script type="text/javascript" src="{{ URL::asset('js/app.js') }}"></script>
+<div id="scripts">
+    @yield('script')
+</div>
 </body>
 </html>

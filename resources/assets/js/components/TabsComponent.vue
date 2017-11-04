@@ -17,6 +17,7 @@
     export default {
         mounted() {
             console.log('Component mounted.')
+            jQuery(this.$els.modal).modal('show')
         }
     }
 </script>

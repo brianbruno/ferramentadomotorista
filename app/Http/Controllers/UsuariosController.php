@@ -24,20 +24,19 @@ class UsuariosController
         $usuarios = DB::table('usuarios')
             ->leftJoin('registros', 'registros.userid','=' ,'usuarios.id')
             ->select('usuarios.id as id',
-                     'usuarios.email as email',
-                     'usuarios.nome as nome',
-                     'usuarios.sobrenome as sobrenome',
-                     DB::raw('count(registros.id) as total_registros'))
+                'usuarios.email as email',
+                'usuarios.nome as nome',
+                'usuarios.sobrenome as sobrenome',
+                DB::raw('count(registros.id) as total_registros'))
             ->groupBy('usuarios.id',
-                      'usuarios.email',
-                      'usuarios.nome',
-                      'usuarios.sobrenome')
+                'usuarios.email',
+                'usuarios.nome',
+                'usuarios.sobrenome')
             ->get();
 
-        if($returnType == "json")
-            return response()->json(array("usuarios" => $usuarios));
-        else
-            return view('usuarios.index',compact('usuarios'));
+        $array = array("usuarios" => $usuarios);
+
+        return $this->resposta($returnType, $array, 'usuarios.index');
     }
 
     /**
@@ -47,11 +46,6 @@ class UsuariosController
      * @param String $returnType
      * @return \Illuminate\Http\Response
      */
-    /* public function show($id)
-    {
-
-        return view('usuarios.show',compact('usuario'));
-    }*/
 
     public function show($id, $returnType = "view")
     {
@@ -73,13 +67,13 @@ class UsuariosController
 
         $registros = DB::table('registros')
             ->select('registros.id as id',
-                     'registros.valor as valor',
-                     'registros.data as data',
-                     DB::raw('count(registros.id) as total_registros'))
+                'registros.valor as valor',
+                'registros.data as data',
+                DB::raw('count(registros.id) as total_registros'))
             ->where('registros.userid', '=', $id)
             ->groupBy('registros.id',
-                      'registros.data',
-                      'registros.valor')
+                'registros.data',
+                'registros.valor')
             ->get();
 
         $ganhosPorMes = array();
@@ -88,7 +82,7 @@ class UsuariosController
         for($i = 1; $i<= $mesAtual; $i++){
             $resultado = DB::table('registros')
                 ->select(DB::raw('TRUNCATE(IFNULL(SUM(registros.valor), 0), 2) as ganhosMes'),
-                         DB::raw('TRUNCATE(IFNULL(AVG(registros.valor), 0), 2) as mediaMes'))
+                    DB::raw('TRUNCATE(IFNULL(AVG(registros.valor), 0), 2) as mediaMes'))
                 ->where('userid', '=', $id)
                 ->whereMonth('data', $i)
                 ->get();
@@ -100,10 +94,26 @@ class UsuariosController
             $registro->data = date("d-m-Y", strtotime($registro->data));
         }
 
+        $array = array("usuario" => $usuario, "registros" => $registros, "ganhosPorMes" => $ganhosPorMes, "mesesDoAno"=>$this->mesesDoAno);
+
+        return $this->resposta($returnType, $array, $view='usuarios.show');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param String $returnType
+     * @param array $array
+     * @param String $view
+     * @return \Illuminate\Http\Response
+     */
+
+    public function resposta($returnType, $array, $view = 'usuarios.index'){
         if($returnType == "json")
-            return response()->json(array("usuario" => $usuario, "registros" => $registros, "ganhosPorMes" => $ganhosPorMes, "mesesDoAno"=>$this->mesesDoAno));
+            return response()->json($array);
         else
-            return view('usuarios.show',["usuario"=>$usuario, "registros"=>$registros, "ganhosPorMes"=>$ganhosPorMes, "mesesDoAno"=>$this->mesesDoAno]);
+            return view($view, $array);
+
     }
 
 }
