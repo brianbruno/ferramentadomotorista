@@ -22,7 +22,13 @@
         <div id="informacoes" class="col s12">
             <div class="row">
                 <div class="col l12">
-                    <h5>{{ $usuario[0]->email }}</h5>
+                    <h5><strong>Nome:</strong> {{ $usuario[0]->nome }} {{ $usuario[0]->sobrenome }}</h5>
+                    <h5><strong>Email:</strong> {{ $usuario[0]->email }}</h5>
+                    <h5><strong>Total de registros:</strong> {{ $usuario[0]->total_registros }}</h5>
+                    @if($usuario[0]->total_registros > 0)
+                    <h5><strong>Média de registros:</strong> {{ $usuario[0]->media_registros }}</h5>
+                    <h5><strong>Posição no ranking de registros:</strong> {{ $posicaoRanking }}</h5>
+                    @endif
                 </div>
             </div>
         </div>
@@ -53,12 +59,6 @@
                     <div class="row">
                         <div class="row">
                             <div class="col l12">
-                                <h5>Total de registros: {{ $usuario[0]->total_registros }}</h5>
-                                <h5>Média por cada registro: {{ $usuario[0]->media_registros }}</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col l12">
                                 <table class="table highlight bordered">
                                     <tr>
                                         <th>ID</th>
@@ -83,7 +83,9 @@
                 @endif
             </div>
         </div>
-        <div id="configuracoes" class="col s12">Test 3</div>
+        <div id="configuracoes" class="col s12">
+            <h5><strong>Meta para o mês atual: </strong></h5>
+        </div>
     </div>
 
 @endsection

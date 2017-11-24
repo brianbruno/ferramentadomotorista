@@ -41,5 +41,12 @@ Route::get('/usuarios/{returnType?}',function($returnType = 'view'){
 })->name('usuarios.index')
   ->where(['returnType' => '[a-z]+']);
 
+Route::get('/usuarios/dados/{id}/{returnType?}',function($id, $returnType = 'view'){
+    $app = app();
+    $controller = $app->make('\App\Http\Controllers\UsuariosController');
+    return $controller->getData($id, $returnType);
+})  ->name('data.usuarios')
+    ->where(['returnType' => '[a-z]+', 'id' => '[0-9]+']);
+
 
 
